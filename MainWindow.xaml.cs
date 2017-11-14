@@ -30,11 +30,13 @@ namespace WpfApp2
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            C.receiveNameCOM = "COM4";
-            C.boolSixteenCOM = true;
-            C.baudRateCOM = 9600;
+            C.receiveNameCOM = "COM4";//接收串口号
+            C.sendNameCOM = "COM3";//发送串口号
+            C.boolSixteenCOM = true;//是否16位数据
+            C.baudRateCOM = 9600;//波特率
             C.startCOM();
             C.serialPortsMessage += C_serialPortsMessage;
+            C.sendCOM("");//发送消息
         }
 
         private void C_serialPortsMessage(object sender, 串口及网络通信.serialPortsEventArgs e)
@@ -42,6 +44,7 @@ namespace WpfApp2
             string s = null;
             foreach (byte c in e.getbyte)
             {
+                //这里的e.getbyte里面得到的是ascII码，还需要转一下，就可以使用了，这个是接收的
                 s += c.ToString();
             }
             Lable1.Content = s;
